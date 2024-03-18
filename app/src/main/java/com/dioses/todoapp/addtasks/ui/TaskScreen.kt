@@ -17,6 +17,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -24,7 +25,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
@@ -35,23 +35,29 @@ import androidx.compose.ui.window.Dialog
  * Created by Arthur Dioses Reto on 18/03/24 at 9:20 AM
  * All rights reserved 2024.
  ****/
-@Preview
+
 @Composable
-fun TaskScreen() {
+fun TaskScreen(taskViewModel: TaskViewModel) {
+
+    val showDialog: Boolean by taskViewModel.showDialog.observeAsState(false)
+
     Box(modifier = Modifier.fillMaxSize()) {
-        AddTaskDialog(show = true, onDismiss = {}, onTaskAdded = {})
+        AddTaskDialog(
+            show = showDialog,
+            onDismiss = { taskViewModel.onDialogClose() },
+            onTaskAdded = { taskViewModel.onTaskCreated(it) })
         FabDialog(
             Modifier
                 .align(Alignment.BottomEnd)
-                .padding(16.dp)
+                .padding(16.dp), taskViewModel
         )
     }
 }
 
 @Composable
-fun FabDialog(modifier: Modifier) {
+fun FabDialog(modifier: Modifier, taskViewModel: TaskViewModel) {
     FloatingActionButton(onClick = {
-        //mostrar dialogo
+        taskViewModel.onShowDialogClick()
     }, modifier = modifier) {
         Icon(imageVector = Icons.Filled.Add, contentDescription = "")
     }
