@@ -10,7 +10,7 @@ import androidx.room.PrimaryKey
  ****/
 data class TaskEntity(
     @PrimaryKey
-    val id: Long,
+    val id: Int,
     val task: String,
     var selected: Boolean = false,
 )
