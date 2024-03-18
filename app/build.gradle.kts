@@ -51,6 +51,8 @@ android {
     }
 }
 
+val room_version = "2.6.1"
+
 dependencies {
 
     implementation("androidx.core:core-ktx:1.12.0")
@@ -66,6 +68,12 @@ dependencies {
     kapt("com.google.dagger:hilt-android-compiler:2.48")
     //LiveData
     implementation("androidx.compose.runtime:runtime-livedata")
+    //Room
+    implementation("androidx.room:room-runtime:$room_version")
+    annotationProcessor("androidx.room:room-compiler:$room_version")
+    //Room optional - Kotlin Extensions and Coroutines support for Room
+    implementation("androidx.room:room-ktx:$room_version")
+
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
