@@ -9,5 +9,5 @@ import androidx.compose.runtime.Composable
  * All rights reserved 2024.
  ****/
 @Composable
-fun TaskScreen() {
+fun TaskScreen(taskViewModel: TaskViewModel) {
 }
