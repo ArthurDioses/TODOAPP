@@ -1,5 +1,6 @@
 package com.dioses.todoapp.addtasks.data
 
+import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 /****
@@ -8,6 +9,7 @@ import androidx.room.PrimaryKey
  * Created by Arthur Dioses Reto on 18/03/24 at 2:06 PM
  * All rights reserved 2024.
  ****/
+@Entity(tableName = "TaskEntity")
 data class TaskEntity(
     @PrimaryKey
     val id: Int,
