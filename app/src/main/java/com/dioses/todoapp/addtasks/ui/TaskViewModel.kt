@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dioses.todoapp.addtasks.domain.AddTaskUseCase
 import com.dioses.todoapp.addtasks.domain.GetTaskUseCase
+import com.dioses.todoapp.addtasks.domain.UpdateTaskUseCase
 import com.dioses.todoapp.addtasks.ui.TaskUiState.*
 import com.dioses.todoapp.addtasks.ui.model.TaskModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -28,6 +29,7 @@ import javax.inject.Inject
 @HiltViewModel
 class TaskViewModel @Inject constructor(
     private val addTaskUseCase: AddTaskUseCase,
+    private val updateTaskUseCase: UpdateTaskUseCase,
     getTaskUseCase: GetTaskUseCase,
 ) : ViewModel() {
 
@@ -64,6 +66,9 @@ class TaskViewModel @Inject constructor(
         //_tasks[index] = _tasks[index].let {
         //it.copy(selected = !it.selected)
         //}
+        viewModelScope.launch {
+            updateTaskUseCase(taskModel.copy(selected = !taskModel.selected))
+        }
     }
 
     fun onItemRemove(taskModel: TaskModel) {
