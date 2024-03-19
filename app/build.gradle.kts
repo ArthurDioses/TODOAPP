@@ -70,7 +70,7 @@ dependencies {
     implementation("androidx.compose.runtime:runtime-livedata")
     //Room
     implementation("androidx.room:room-runtime:$room_version")
-    annotationProcessor("androidx.room:room-compiler:$room_version")
+    kapt("androidx.room:room-compiler:$room_version")
     //Room optional - Kotlin Extensions and Coroutines support for Room
     implementation("androidx.room:room-ktx:$room_version")
 
