@@ -1,13 +1,12 @@
 package com.dioses.todoapp.addtasks.ui
 
-import android.util.Log
-import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dioses.todoapp.addtasks.domain.AddTaskUseCase
 import com.dioses.todoapp.addtasks.domain.GetTaskUseCase
+import com.dioses.todoapp.addtasks.domain.DeleteTaskUseCase
 import com.dioses.todoapp.addtasks.domain.UpdateTaskUseCase
 import com.dioses.todoapp.addtasks.ui.TaskUiState.*
 import com.dioses.todoapp.addtasks.ui.model.TaskModel
@@ -30,6 +29,7 @@ import javax.inject.Inject
 class TaskViewModel @Inject constructor(
     private val addTaskUseCase: AddTaskUseCase,
     private val updateTaskUseCase: UpdateTaskUseCase,
+    private val deleteTaskUseCase: DeleteTaskUseCase,
     getTaskUseCase: GetTaskUseCase,
 ) : ViewModel() {
 
@@ -75,6 +75,9 @@ class TaskViewModel @Inject constructor(
         //Borrar item
         //val task = _tasks.find { it.id == taskModel.id }
         //_tasks.remove(task)
+        viewModelScope.launch {
+            deleteTaskUseCase.invoke(taskModel)
+        }
     }
 
 }
